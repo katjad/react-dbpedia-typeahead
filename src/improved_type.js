@@ -78,8 +78,7 @@ var Input = React.createClass({
                         var res_url = 'http://wikipedia.org/wiki/'+result.label.split(' ').join('_');
                         var url = Handlebars.Utils.escapeExpression(res_url);
                         var val =  '<a href="' + url + '">'+ result.label + '</a>';
-                        var value = new Handlebars.SafeString(val);
-                        console.log(value);
+                        var link = new Handlebars.SafeString(val);
 
                         var classes_array = $.map(result.classes, function(oneclass){
                             return oneclass.label;
@@ -92,7 +91,8 @@ var Input = React.createClass({
                         var categories = cat_array.join(", ");
 
                         return {
-                            value: value,
+                            value: result.label,
+                            url: link,
                             classes: classes,
                             categories: categories
                         };
@@ -149,7 +149,7 @@ var Input = React.createClass({
                         '</div>'
                     ].join('\n'),
                     header: '<h3 class="dbpedia">Dbpedia</h3>',
-                    suggestion: Handlebars.compile('<p style="font-size: 18px">{{value}}</p>' +
+                    suggestion: Handlebars.compile('<p style="font-size: 18px">{{value}}</p>{{url}}<br />' +
                     '<em><strong>Classes:</strong> {{classes}}</em><br />' +
                     '<em><strong>Categories:</strong> {{categories}}</em><br />&nbsp;<br />')
 
@@ -160,6 +160,7 @@ var Input = React.createClass({
         var self = this;
 
         $(element).on('typeahead:selected', function(jquery, option){
+            console.log(option.value);
             self.props.value = option.value;
         });
     },
