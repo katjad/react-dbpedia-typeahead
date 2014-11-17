@@ -74,21 +74,34 @@ var Input = React.createClass({
             remote:
             {url: 'http://lookup.dbpedia.org/api/search/PrefixSearch?QueryClass=&MaxHits=5&QueryString=%QUERY',
                 filter: function(dbpedia){
-                               return $.map(dbpedia.results, function(result){
-                               var className = !(typeof(result.classes[0]) === 'undefined') ?
-                                       result.classes[0].label : '';
+                    return $.map(dbpedia.results, function(result){
+                        var res_url = 'http://wikipedia.org/wiki/'+result.label.split(' ').join('_');
+                        var url = Handlebars.Utils.escapeExpression(res_url);
+                        var val =  '<a href="' + url + '">'+ result.label + '</a>';
+                        var value = new Handlebars.SafeString(val);
+                        console.log(value);
 
-                        //var res_url = 'http://wikipedia.org/wiki/'+result.label.split(' ').join('_');
+                        var classes_array = $.map(result.classes, function(oneclass){
+                            return oneclass.label;
+                        })
+                        var classes = classes_array.join(", ");
+
+                        var cat_array = $.map(result.categories, function(onecat){
+                            return onecat.label;
+                        })
+                        var categories = cat_array.join(", ");
+
                         return {
-                            value: result.label,//value: '<a href="' + res_url + '">'+ result.label + '</a>'
-                            className: className
+                            value: value,
+                            classes: classes,
+                            categories: categories
                         };
                     });
                 }
             }
         });
-        films.initialize();
-        speakers.initialize();
+        //films.initialize();
+        //speakers.initialize();
         dbpedia.initialize();
 
 
@@ -98,7 +111,7 @@ var Input = React.createClass({
                 highlight: true,
                 minLength: 1
             },
-            {
+            /*{
                 name: 'films',
                 source: films.ttAdapter(),
                 templates: {
@@ -124,7 +137,7 @@ var Input = React.createClass({
                     header: '<h3 class="speakers">Speakers</h3>'
                     //,suggestion: Handlebars.compile('<p  class="films">{{value}}</p>')
                 }
-            },
+            },*/
             {
                 name: 'dbpedia',
                 displayKey: 'value',
@@ -136,7 +149,10 @@ var Input = React.createClass({
                         '</div>'
                     ].join('\n'),
                     header: '<h3 class="dbpedia">Dbpedia</h3>',
-                    suggestion: Handlebars.compile('<p>{{value}} <em>{{className}}</em></p>')
+                    suggestion: Handlebars.compile('<p style="font-size: 18px">{{value}}</p>' +
+                    '<em><strong>Classes:</strong> {{classes}}</em><br />' +
+                    '<em><strong>Categories:</strong> {{categories}}</em><br />&nbsp;<br />')
+
                 }
             })
 
