@@ -1,1 +1,1 @@
-# React Component for Savvy interface
+# React Component for lookup of Dbpedia terms with Typeahead plugin
