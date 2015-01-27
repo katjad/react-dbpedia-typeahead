@@ -1,8 +1,12 @@
 {
-  "name": "foundation-compass-app",
-  "version": "0.0.1",
-  "private": "true",
+  "name": "dbpedia-lookup",
+  "version": "0.0.0",
+  "authors": [
+    "Katja Durrani <mail@kdurrani.co.uk>"
+  ],
   "dependencies": {
-    "foundation": "zurb/bower-foundation"
+    "handlebars": "~2.0.0",
+    "jquery": "~2.1.3",
+    "typeahead.js": "~0.10.5"
   }
 }

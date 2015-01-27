@@ -82,9 +82,37 @@ p + p {
 }
 
 /* added KD */
+
+#bloodhound {
+    background: url('../img/Wikiblur.png') no-repeat;
+    margin: 20px 0 0 20px;
+    overflow: auto;
+    min-height: 800px;
+}
+
+h2 {
+    font-size: 36px;
+    font-family: serif;
+    font-weight: 300;
+    color: #59d;
+}
+
 h3 {
     font-size: 18px;
 }
+
+.btn-primary{
+    margin: 30px 0 0 15px;
+    line-height: 2.5em;
+}
+
+.value-entered{
+    padding: 8px 12px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+/* end added */
 
 .typeahead,
 .tt-query,
